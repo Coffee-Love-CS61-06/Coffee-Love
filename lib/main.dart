@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pizza/ImageClassifier.dart';
+import 'package:coffee_love/ImageClassifier.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(new MaterialApp(
