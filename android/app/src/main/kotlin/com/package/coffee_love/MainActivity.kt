@@ -1,4 +1,4 @@
-package com.example.smart_pizza
+package com.package.coffee_love
 
 import io.flutter.embedding.android.FlutterActivity
 
