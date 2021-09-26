@@ -1,4 +1,4 @@
-green
-light
-medium
-dark
+Dark
+Green
+Light
+Medium

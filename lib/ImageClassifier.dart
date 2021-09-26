@@ -28,7 +28,7 @@ class _ImageClassifierState extends State<ImageClassifier> {
 
   loadModel() async {
     await Tflite.loadModel(
-        model: "assets/model.tflite",
+        model: "assets/coffee_model.tflite",
         labels: "assets/labels.txt",
         numThreads: 1,
         isAsset: true,
@@ -40,7 +40,7 @@ class _ImageClassifierState extends State<ImageClassifier> {
         path: image.path,
         imageMean: 0.0,
         imageStd: 255.0,
-        numResults: 2,
+        numResults: 4,
         threshold: 0.2,
         asynch: true);
     setState(() {
