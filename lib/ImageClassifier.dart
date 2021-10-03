@@ -1,8 +1,7 @@
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tflite/tflite.dart';
 
 class ImageClassifier extends StatefulWidget {
   @override
@@ -10,68 +9,48 @@ class ImageClassifier extends StatefulWidget {
 }
 
 class _ImageClassifierState extends State<ImageClassifier> {
-  List _outputs;
-  File _image;
-  bool _loading = false;
+  File imageURI;
+  String result;
+  String path;
 
-  @override
-  void initState() {
-    super.initState();
-    _loading = true;
-
-    loadModel().then((value) {
+  classifyImage(BuildContext context) async {
+    FormData formData =
+        new FormData.fromMap({"file": await MultipartFile.fromFile(path)});
+    try {
+      Dio dio = Dio();
+      // var response = await Dio().post("http://[your own ip address]:5000/upload", data: formData); //change [your own ip address] to your own address
+      var response =
+          await dio.post("http://10.0.2.2:5000/predict", data: formData);
+      if (response.statusCode == 200) {
+        print("done");
+        // var parsedJson = json.decode(response.data.toString());
+        setState(() {
+          result = "${response.data['class']}\n${response.data["score"]} %";
+        });
+      } else {
+        print("error");
+      }
+    } catch (e) {
       setState(() {
-        _loading = false;
+        result = e.toString();
       });
-    });
+    }
   }
 
-  loadModel() async {
-    await Tflite.loadModel(
-        model: "assets/coffee_model.tflite",
-        labels: "assets/labels.txt",
-        numThreads: 1,
-        isAsset: true,
-        useGpuDelegate: false);
-  }
-
-  classifyImage(File image) async {
-    var output = await Tflite.runModelOnImage(
-        path: image.path,
-        imageMean: 0.0,
-        imageStd: 255.0,
-        numResults: 4,
-        threshold: 0.2,
-        asynch: true);
-    setState(() {
-      _loading = false;
-      _outputs = output;
-    });
-  }
-
-  @override
-  void dispose() {
-    Tflite.close();
-    super.dispose();
-  }
-
-  pickImage() async {
+  Future getImageFromGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image == null) return null;
     setState(() {
-      _loading = true;
-      _image = image;
+      imageURI = image;
+      path = image.path;
     });
-    classifyImage(_image);
   }
 
-  pickImageTwo() async {
+  Future getImageFromCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
     setState(() {
-      _image = image;
+      imageURI = image;
+      path = image.path;
     });
-    classifyImage(_image);
   }
 
   @override
@@ -90,64 +69,80 @@ class _ImageClassifierState extends State<ImageClassifier> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _loading
-                    ? Container(
-                        height: 300,
-                        width: 300,
-                      )
-                    : Container(
-                        // margin: EdgeInsets.all(5),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            _image == null ? Container() : Image.file(_image),
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
-                            _image == null
-                                ? Container()
-                                : _outputs != null
-                                    ? Container(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              _outputs[0]["label"] + "\n",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15),
-                                            ),
-                                            Text(
-                                              "${(_outputs[0]["confidence"] * 100).toStringAsFixed(2)}%  Confidence level" +
-                                                  "\n",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : Container(child: Text(""))
-                          ],
-                        ),
-                      ),
+                Container(
+                  margin: EdgeInsets.all(5),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      imageURI == null
+                          ? Container(
+                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                              child: Text('No image selected.'),
+                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            )
+                          : Container(
+                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                              child: Image.file(imageURI,
+                                  width: 300, height: 200, fit: BoxFit.cover),
+                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            ),
+                      result == null
+                          ? Text('Result')
+                          : Container(
+                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                              child: Text(result,
+                                  style: TextStyle(fontSize: 20.00)),
+                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            ),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                          child: RaisedButton(
+                            onPressed: () => classifyImage(context),
+                            child: Text('Classify Image'),
+                            textColor: Colors.white,
+                            color: Colors.blue,
+                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                          )),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                          child: IconButton(
+                            onPressed: () => getImageFromCamera(),
+                            icon: Image.asset('assets/images/camera.png'),
+                            iconSize: 350,
+                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                          )),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: IconButton(
+                            onPressed: () => getImageFromGallery(),
+                            icon: Image.asset('assets/images/photo.png'),
+                            iconSize: 350,
+                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                          )),
+                      // Container(
+                      //     margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                      //     child: RaisedButton(
+                      //       onPressed: () => classifyImage(context),
+                      //       child: Text('Classify Image'),
+                      //       textColor: Colors.white,
+                      //       color: Colors.blue,
+                      //       padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      //     )),
+                      // result == null
+                      //     ? Text('Result')
+                      //     : Container(
+                      //     margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                      //     child: Text(result, style:TextStyle(fontSize: 20.00 )),
+                      //     padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      // ),
+                    ],
+                  ),
+                ),
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.height * 0.01,
                 // ),
-                IconButton(
-                  icon: Image.asset('assets/images/camera.png'),
-                  iconSize: 350,
-                  onPressed: pickImageTwo,
-                  padding: EdgeInsets.zero,
-                ),
-                IconButton(
-                  icon: Image.asset('assets/images/photo.png'),
-                  iconSize: 350,
-                  onPressed: pickImage,
-                  padding: EdgeInsets.zero,
-                )
-
               ],
             ),
           ),

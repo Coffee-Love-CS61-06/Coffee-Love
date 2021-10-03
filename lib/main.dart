@@ -32,7 +32,7 @@ class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tensorflow Lite',
+      title: 'TensorFlow',
       home: ImageClassifier(),
     );
   }
