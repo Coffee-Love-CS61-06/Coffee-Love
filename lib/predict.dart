@@ -100,10 +100,10 @@ class _PredictState extends State<Predict> {
                           margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
                           child: RaisedButton(
                             onPressed: () => classifyImage(context),
-                            child: Text('Classify Image'),
+                            child: Text('Predict'),
                             textColor: Colors.white,
-                            color: Colors.blue,
-                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            color: Color(0xFFCD976A),
+                            padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
                           )),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
@@ -111,8 +111,8 @@ class _PredictState extends State<Predict> {
                             onPressed: () => getImageFromCamera(),
                             child: Text('TAKE A PHOTO'),
                             textColor: Colors.white,
-                            color: Colors.blue,
-                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            color: Color(0xFFD8803C),
+                            padding: EdgeInsets.fromLTRB(120, 12, 120, 12),
                           )),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -120,8 +120,8 @@ class _PredictState extends State<Predict> {
                             onPressed: () => getImageFromGallery(),
                             child: Text('UPLOAD A PHOTO'),
                             textColor: Colors.white,
-                            color: Colors.blue,
-                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                            color: Color(0xFFD8803C),
+                            padding: EdgeInsets.fromLTRB(110, 12, 110, 12),
                           )),
                       // Container(
                       //     margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
