@@ -11,6 +11,8 @@ class Predict extends StatefulWidget {
 class _PredictState extends State<Predict> {
   File imageURI;
   String result;
+  String class_result;
+  String score_result;
   String path;
 
   classifyImage(BuildContext context) async {
@@ -25,15 +27,16 @@ class _PredictState extends State<Predict> {
         print("done");
         // var parsedJson = json.decode(response.data.toString());
         setState(() {
-          result =
-              "${response.data['class']} Roast\n Confidence level ${response.data["score"]} %";
+          class_result = "${response.data['class']} Roast";
+          score_result = "Confidence level: ${response.data["score"]} %";
         });
       } else {
         print("error");
       }
     } catch (e) {
       setState(() {
-        result = e.toString();
+        class_result = e.toString();
+        score_result = e.toString();
       });
     }
   }
@@ -89,12 +92,12 @@ class _PredictState extends State<Predict> {
                                   width: 300, height: 200, fit: BoxFit.cover),
                               padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                             ),
-                      result == null
+                      class_result == null && score_result == null
                           ? Text('Result', style: TextStyle(fontSize: 18),)
                           : Container(
                               margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Text(result,
-                                  style: TextStyle(fontSize: 18.00)),
+                              child: Text(class_result +"\n"+ score_result , textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 18.00,)),
                               padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                             ),
                       Container(
