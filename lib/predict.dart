@@ -3,24 +3,24 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageClassifier extends StatefulWidget {
+class Predict extends StatefulWidget {
   @override
-  _ImageClassifierState createState() => _ImageClassifierState();
+  _PredictState createState() => _PredictState();
 }
 
-class _ImageClassifierState extends State<ImageClassifier> {
+class _PredictState extends State<Predict> {
   File imageURI;
   String result;
   String path;
 
   classifyImage(BuildContext context) async {
     FormData formData =
-        new FormData.fromMap({"file": await MultipartFile.fromFile(path)});
+    new FormData.fromMap({"file": await MultipartFile.fromFile(path)});
     try {
       Dio dio = Dio();
       // var response = await Dio().post("http://[your own ip address]:5000/upload", data: formData); //change [your own ip address] to your own address
       var response =
-          await dio.post("http://10.0.2.2:5000/predict", data: formData);
+      await dio.post("http://10.0.2.2:5000/predict", data: formData);
       if (response.statusCode == 200) {
         print("done");
         // var parsedJson = json.decode(response.data.toString());
@@ -78,24 +78,24 @@ class _ImageClassifierState extends State<ImageClassifier> {
                     children: <Widget>[
                       imageURI == null
                           ? Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Text('No image selected.'),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            )
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Text('No image selected.'),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      )
                           : Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Image.file(imageURI,
-                                  width: 300, height: 200, fit: BoxFit.cover),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            ),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Image.file(imageURI,
+                            width: 300, height: 200, fit: BoxFit.cover),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      ),
                       result == null
                           ? Text('Result')
                           : Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Text(result,
-                                  style: TextStyle(fontSize: 20.00)),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            ),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Text(result,
+                            style: TextStyle(fontSize: 20.00)),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      ),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
                           child: RaisedButton(
@@ -107,18 +107,20 @@ class _ImageClassifierState extends State<ImageClassifier> {
                           )),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                          child: IconButton(
+                          child: RaisedButton(
                             onPressed: () => getImageFromCamera(),
-                            icon: Image.asset('assets/images/camera.png'),
-                            iconSize: 350,
+                            child: Text('TAKE A PHOTO'),
+                            textColor: Colors.white,
+                            color: Colors.blue,
                             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                           )),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: IconButton(
+                          child: RaisedButton(
                             onPressed: () => getImageFromGallery(),
-                            icon: Image.asset('assets/images/photo.png'),
-                            iconSize: 350,
+                            child: Text('UPLOAD A PHOTO'),
+                            textColor: Colors.white,
+                            color: Colors.blue,
                             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                           )),
                       // Container(

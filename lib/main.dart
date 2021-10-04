@@ -1,5 +1,6 @@
+import 'package:coffee_love/predict.dart';
 import 'package:flutter/material.dart';
-import 'package:coffee_love/ImageClassifier.dart';
+import 'package:coffee_love/home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(new MaterialApp(
@@ -37,7 +38,7 @@ class AfterSplash extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TensorFlow',
-      home: ImageClassifier(),
+      home: Home(),
     );
   }
 }
