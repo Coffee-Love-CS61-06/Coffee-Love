@@ -7,8 +7,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,34 +31,45 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                          margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                          child: Text("Coffee Roast Intelligence")),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => Predict()),
-                                );
-                              },
-                            icon: Image.asset('assets/images/camera.png'),
-                            iconSize: 350,
-                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                          )),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Predict()),
-                              );
-                            },
-                            icon: Image.asset('assets/images/photo.png'),
-                            iconSize: 350,
-                            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                          )),
+                        height: 200.0,
+                        width: 450.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/logoname.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Predict()));
+                        },
+                        // handle your image tap here
+                        child: Image.asset(
+                          'assets/images/camera.png',
+                          // this is the solution for border
+                          width: 350.0,
+                          height: 210.0,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Predict()));
+                        },
+                        // handle your image tap here
+                        child: Image.asset(
+                          'assets/images/photo.png',
+                          // this is the solution for border
+                          width: 350.0,
+                          height: 210.0,
+                        ),
+                      ),
                     ],
                   ),
                 ),
