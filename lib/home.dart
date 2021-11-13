@@ -9,38 +9,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  File imageURI;
-
-  getImageFromCamera() async {
-    final navigator = Navigator.of(context);
-    File pickedImage = await ImagePicker.pickImage(source: ImageSource.camera);
-    if (pickedImage != null) {
-      print(pickedImage.path);
-      await navigator.push(
-        MaterialPageRoute(
-          builder: (context) => Predict(
-            // imageURI: pickedImage.path,
-          ),
-        ),
-      );
-    }
-  }
-
-  getImageFromGallery() async {
-    final navigator = Navigator.of(context);
-    File pickedImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      print(pickedImage.path);
-      await navigator.push(
-        MaterialPageRoute(
-          builder: (context) => Predict(
-            // localImagePath: pickedImage.path,
-          ),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,45 +46,44 @@ class _HomeState extends State<Home> {
                         height: 20.0,
                       ),
                       GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Predict()));
+                        },
                         child: Container(
-                            width: 300,
+                            width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/camera.png'),
+                                  image: AssetImage('assets/images/predict.png'),
                                   fit: BoxFit.cover),
                             )),
-                        onTap: () => getImageFromCamera(),
                       ),
                       Container(
                         height: 30.0,
                       ),
                       GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Predict()));
+                        },
                         child: Container(
-                            width: 300,
+                            width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/photo.png'),
+                                  image: AssetImage('assets/images/history.png'),
                                   fit: BoxFit.cover),
                             )),
-                        onTap: () => getImageFromGallery(),
                       ),
                       Container(
                         height: 20.0,
                       ),
-                      ButtonTheme(
-                        minWidth: 290.0,
-                        height: 50.0,
-                        child: RaisedButton(
-                          onPressed: () => {},
-                          color: Color(0xFF885E5F),
-                          child: Text(
-                            'History',
-                            style: TextStyle(color: Color(0xFFFFFFFF)),
-                          ),
-                        ),
-                      ),
+
                     ],
                   ),
                 ),
