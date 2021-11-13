@@ -177,7 +177,7 @@ class _PredictState extends State<Predict> {
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 textColor: Colors.white,
-                                color: Color(0xFF2B2B2C),
+                                color: Color(0xFF885E5F),
                                 padding: EdgeInsets.fromLTRB(150, 12, 150, 12),
                               ),
                             ),
