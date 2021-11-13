@@ -41,6 +41,31 @@ class _PredictState extends State<Predict> {
     }
   }
 
+  TextEditingController _textFieldController = TextEditingController();
+  description(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Description'),
+            content: TextField(
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(hintText: "Enter your desciption"),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Save'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   Future getImageFromGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -56,6 +81,8 @@ class _PredictState extends State<Predict> {
       path = image.path;
     });
   }
+
+  var status = true;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +171,7 @@ class _PredictState extends State<Predict> {
                           : Container(
                               margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: RaisedButton(
-                                onPressed: () => classifyImage(context),
+                                onPressed: () => description(context),
                                 child: Text(
                                   'Save',
                                   style: TextStyle(fontSize: 18),
