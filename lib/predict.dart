@@ -17,12 +17,12 @@ class _PredictState extends State<Predict> {
 
   classifyImage(BuildContext context) async {
     FormData formData =
-        new FormData.fromMap({"file": await MultipartFile.fromFile(path)});
+    new FormData.fromMap({"file": await MultipartFile.fromFile(path)});
     try {
       Dio dio = Dio();
       // var response = await Dio().post("http://[your own ip address]:5000/upload", data: formData); //change [your own ip address] to your own address
       var response =
-          await dio.post("http://10.0.2.2:5000/predict", data: formData);
+      await dio.post("http://10.0.2.2:5000/predict", data: formData);
       if (response.statusCode == 200) {
         print("done");
         // var parsedJson = json.decode(response.data.toString());
@@ -82,38 +82,74 @@ class _PredictState extends State<Predict> {
                     children: <Widget>[
                       imageURI == null
                           ? Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Text('No image selected.',style: TextStyle(fontSize: 18),),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            )
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Text(
+                          'No image selected.',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      )
                           : Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Image.file(imageURI,
-                                  width: 300, height: 200, fit: BoxFit.cover),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            ),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Image.file(imageURI,
+                            width: 300, height: 200, fit: BoxFit.cover),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      ),
                       class_result == null && score_result == null
-                          ? Text('Result', style: TextStyle(fontSize: 18),)
+                          ? Text(
+                        'Result',
+                        style: TextStyle(fontSize: 18),
+                      )
                           : Container(
-                              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                              child: Text(class_result +"\n"+ score_result , textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 18.00,)),
-                              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                            ),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: Text(class_result + "\n" + score_result,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18.00,
+                            )),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      ),
+
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                           child: RaisedButton(
                             onPressed: () => classifyImage(context),
-                            child: Text('Predict', style: TextStyle(fontSize: 18),),
+                            child: Text(
+                              'Predict',
+                              style: TextStyle(fontSize: 18),
+                            ),
                             textColor: Colors.white,
                             color: Color(0xFFCD976A),
                             padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
                           )),
+
+                      class_result == null && score_result == null
+                          ? Text(
+                        '',
+                        style: TextStyle(fontSize: 18),
+                      )
+                          : Container(
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                        child: RaisedButton(
+                          onPressed: () => classifyImage(context),
+                          child: Text(
+                            'Save',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          textColor: Colors.white,
+                          color: Color(0xFFCD976A),
+                          padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
+                        ),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                      ),
                       Container(
                           margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                           child: RaisedButton(
                             onPressed: () => getImageFromCamera(),
-                            child: Text('TAKE A PHOTO', style: TextStyle(fontSize: 18),),
+                            child: Text(
+                              'TAKE A PHOTO',
+                              style: TextStyle(fontSize: 18),
+                            ),
                             textColor: Colors.white,
                             color: Color(0xFFD8803C),
                             padding: EdgeInsets.fromLTRB(110, 12, 110, 12),
@@ -122,7 +158,10 @@ class _PredictState extends State<Predict> {
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: RaisedButton(
                             onPressed: () => getImageFromGallery(),
-                            child: Text('UPLOAD A PHOTO', style: TextStyle(fontSize: 18),),
+                            child: Text(
+                              'UPLOAD A PHOTO',
+                              style: TextStyle(fontSize: 18),
+                            ),
                             textColor: Colors.white,
                             color: Color(0xFFD8803C),
                             padding: EdgeInsets.fromLTRB(100, 12, 100, 12),

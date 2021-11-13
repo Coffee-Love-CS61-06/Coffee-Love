@@ -1,5 +1,7 @@
 import 'package:coffee_love/predict.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,6 +9,38 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  File imageURI;
+
+  getImageFromCamera() async {
+    final navigator = Navigator.of(context);
+    File pickedImage = await ImagePicker.pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      print(pickedImage.path);
+      await navigator.push(
+        MaterialPageRoute(
+          builder: (context) => Predict(
+            // imageURI: pickedImage.path,
+          ),
+        ),
+      );
+    }
+  }
+
+  getImageFromGallery() async {
+    final navigator = Navigator.of(context);
+    File pickedImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      print(pickedImage.path);
+      await navigator.push(
+        MaterialPageRoute(
+          builder: (context) => Predict(
+            // localImagePath: pickedImage.path,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +66,7 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Container(
                         height: 200.0,
-                        width: 450.0,
+                        width: 400.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/logoname.png'),
@@ -40,34 +74,47 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Predict()));
-                        },
-                        // handle your image tap here
-                        child: Image.asset(
-                          'assets/images/camera.png',
-                          // this is the solution for border
-                          width: 350.0,
-                          height: 210.0,
-                        ),
+                      Container(
+                        height: 20.0,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Predict()));
-                        },
-                        // handle your image tap here
-                        child: Image.asset(
-                          'assets/images/photo.png',
-                          // this is the solution for border
-                          width: 350.0,
-                          height: 210.0,
+                        child: Container(
+                            width: 300,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/camera.png'),
+                                  fit: BoxFit.cover),
+                            )),
+                        onTap: () => getImageFromCamera(),
+                      ),
+                      Container(
+                        height: 30.0,
+                      ),
+                      GestureDetector(
+                        child: Container(
+                            width: 300,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/photo.png'),
+                                  fit: BoxFit.cover),
+                            )),
+                        onTap: () => getImageFromGallery(),
+                      ),
+                      Container(
+                        height: 20.0,
+                      ),
+                      ButtonTheme(
+                        minWidth: 290.0,
+                        height: 50.0,
+                        child: RaisedButton(
+                          onPressed: () => {},
+                          color: Color(0xFF885E5F),
+                          child: Text(
+                            'History',
+                            style: TextStyle(color: Color(0xFFFFFFFF)),
+                          ),
                         ),
                       ),
                     ],
