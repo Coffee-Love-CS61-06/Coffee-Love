@@ -1,7 +1,6 @@
 import 'package:coffee_love/predict.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+
 
 class Home extends StatefulWidget {
   @override

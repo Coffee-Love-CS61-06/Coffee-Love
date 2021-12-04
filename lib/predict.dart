@@ -11,7 +11,9 @@ class Predict extends StatefulWidget {
 class _PredictState extends State<Predict> {
   File imageURI;
   String result;
+  // ignore: non_constant_identifier_names
   String class_result;
+  // ignore: non_constant_identifier_names
   String score_result;
   String path;
 
