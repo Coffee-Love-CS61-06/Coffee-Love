@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_love/Presenters/description.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
@@ -66,7 +67,7 @@ class _PredictState extends State<Predict> {
           class_result = "${response.data['class']} Roast";
           score_result = "Confidence level: ${response.data["score"]} %";
           image_url = "${response.data['url']}";
-          image_id = "${response.data['_id'].toString()}";
+          image_id = "${response.data['image_id']}";
         });
       } else {
         print("error");
@@ -80,19 +81,6 @@ class _PredictState extends State<Predict> {
         image_id = e.toString();
       });
     }
-  }
-
-  Future<void> handleDescription() async {
-    final CollectionReference descriptionsCollection =
-        FirebaseFirestore.instance.collection('descriptions');
-    // Create/Update firesotre document
-    descriptionsCollection.doc(user.uid).set({
-      "class_result": class_result,
-      "score_result": score_result,
-      "Description": description_text,
-      "image_url": image_url,
-      "image_id": image_id
-    });
   }
 
   TextEditingController _textFieldController = TextEditingController();
@@ -115,7 +103,8 @@ class _PredictState extends State<Predict> {
               new FlatButton(
                 child: new Text('Save'),
                 onPressed: () {
-                  handleDescription();
+                  CommentProvider().updateDescriptionsData(class_result,
+                      score_result, description_text, image_url, image_id);
                   Flushbar(
                     message: 'Description Saved',
                     icon: Icon(
