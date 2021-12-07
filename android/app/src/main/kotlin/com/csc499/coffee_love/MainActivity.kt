@@ -1,4 +1,4 @@
-package com.example.coffee_love
+package com.csc499.coffee_love
 
 import io.flutter.embedding.android.FlutterActivity
 

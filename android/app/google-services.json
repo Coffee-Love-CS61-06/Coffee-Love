@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34587368783",
+    "project_id": "ptt-coffee-love-2961e",
+    "storage_bucket": "ptt-coffee-love-2961e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34587368783:android:a46ff0fe7c3f5fe7bab93a",
+        "android_client_info": {
+          "package_name": "com.csc499.coffee_love"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34587368783-2d2qvuedt6ea8d3bbk7o73rjh8e8t7oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw_tlb0sFD5eoA_WqzeDNsDDi_WQ7nWQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34587368783-2d2qvuedt6ea8d3bbk7o73rjh8e8t7oq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
