@@ -28,6 +28,9 @@ class _PredictState extends State<Predict> {
   String image_url;
   // ignore: non_constant_identifier_names
   String image_id;
+  // ignore: non_constant_identifier_names
+  String date_time;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
 
@@ -68,6 +71,7 @@ class _PredictState extends State<Predict> {
           score_result = "Confidence level: ${response.data["score"]} %";
           image_url = "${response.data['url']}";
           image_id = "${response.data['image_id']}";
+          date_time = "${response.data['upload_time']}";
         });
       } else {
         print("error");
@@ -79,6 +83,7 @@ class _PredictState extends State<Predict> {
         score_result = e.toString();
         image_url = e.toString();
         image_id = e.toString();
+        date_time = e.toString();
       });
     }
   }
@@ -104,7 +109,7 @@ class _PredictState extends State<Predict> {
                 child: new Text('Save'),
                 onPressed: () {
                   CommentProvider().updateDescriptionsData(class_result,
-                      score_result, description_text, image_url, image_id);
+                      score_result, description_text, image_url, image_id,date_time);
                   Flushbar(
                     message: 'Description Saved',
                     icon: Icon(

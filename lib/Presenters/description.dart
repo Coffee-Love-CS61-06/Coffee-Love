@@ -11,14 +11,15 @@ class CommentProvider {
   final CollectionReference descriptionsCollection =
       FirebaseFirestore.instance.collection('descriptions');
   Future updateDescriptionsData(String class_result, String score_result,
-      String description_text, String image_url, String image_id) async {
+      String description_text, String image_url, String image_id, String date_time) async {
     return await descriptionsCollection.doc().set({
       "class_result": class_result,
       "score_result": score_result,
       "Description": description_text,
       "image_url": image_url,
       "image_id": image_id,
-      "uid": ref
+      "uid": ref,
+      "data-time": date_time
     });
   }
 }

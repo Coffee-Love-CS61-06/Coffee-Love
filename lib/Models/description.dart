@@ -11,6 +11,8 @@ class Descriptions {
   final String image_id;
   // ignore: non_constant_identifier_names
   final String user_id;
+  // ignore: non_constant_identifier_names
+  final String date_time;
 
   Descriptions(
       {this.class_result,
@@ -18,5 +20,6 @@ class Descriptions {
       this.description_text,
       this.image_url,
       this.image_id,
-      this.user_id});
+      this.user_id,
+      this.date_time});
 }
