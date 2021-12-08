@@ -37,11 +37,11 @@ class _HistoryState extends State<History> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            height: 200.0,
+                            height: 120.0,
                             width: 400.0,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('assets/images/logoname.png'),
+                                image: AssetImage('assets/images/historypage.png'),
                                 fit: BoxFit.fill,
                               ),
                             ),
