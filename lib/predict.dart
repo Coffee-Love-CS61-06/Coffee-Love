@@ -67,7 +67,7 @@ class _PredictState extends State<Predict> {
         // var parsedJson = json.decode(response.data.toString());
         setState(() {
           class_result = "${response.data['class']} Roast";
-          score_result = "Confidence level: ${response.data["score"]} %";
+          score_result = "Probability: ${response.data["score"]} %";
           image_url = "${response.data['url']}";
           image_id = "${response.data['image_id']}";
           date_time = "${response.data['upload_time']}";
