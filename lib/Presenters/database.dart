@@ -27,19 +27,19 @@ class DatabaseService {
     });
   }
 
-  // brew list from snapshot
+  // list from snapshot
   List<Descriptions> _historyListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       //print(doc.data);
       return Descriptions(
-        classResult: (doc.data() as dynamic)['class_result'],
-        scoreResult: (doc.data() as dynamic)['score_result'],
-        descriptionText: (doc.data() as dynamic)['description'],
-        imageUrl: (doc.data() as dynamic)['image_url'],
-        imageId: (doc.data() as dynamic)['image_id'],
-        userId: (doc.data() as dynamic)['user_id'],
-        dateTime: (doc.data() as dynamic)['data-time'],
-      );
+          classResult: (doc.data() as dynamic)['class_result'],
+          scoreResult: (doc.data() as dynamic)['score_result'],
+          descriptionText: (doc.data() as dynamic)['description'],
+          imageUrl: (doc.data() as dynamic)['image_url'],
+          imageId: (doc.data() as dynamic)['image_id'],
+          userId: (doc.data() as dynamic)['user_id'],
+          dateTime: (doc.data() as dynamic)['data-time'],
+          docId: (doc.data() as dynamic)['doc_id']);
     }).toList();
   }
 

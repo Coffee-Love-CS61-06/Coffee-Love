@@ -6,6 +6,7 @@ class Descriptions {
   final String imageId;
   final String userId;
   final String dateTime;
+  final String docId;
 
   Descriptions(
       {this.classResult,
@@ -14,5 +15,6 @@ class Descriptions {
       this.imageUrl,
       this.imageId,
       this.userId,
-      this.dateTime});
+      this.dateTime,
+      this.docId});
 }
