@@ -15,7 +15,6 @@ class _RegisterState extends State<Register> {
   String error = '';
   bool loading = false;
 
-
   // text field state
   String email = '';
   String password = '';
@@ -23,17 +22,16 @@ class _RegisterState extends State<Register> {
   String firstname = '';
   String lastname = '';
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.brown[100],
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Color(0xFFF1EAE0),
             appBar: AppBar(
-              backgroundColor: Colors.brown[400],
+              backgroundColor: Colors.transparent,
               elevation: 0.0,
-              title: Text('Sign up to ABCD'),
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -41,10 +39,28 @@ class _RegisterState extends State<Register> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    Container(
+                      height: 150.0,
+                      width: 150.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/logo.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    Text('REGISTER',
+                        style: TextStyle(color: Colors.black, fontSize: 22)),
                     SizedBox(height: 20.0),
                     TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'email'),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        labelText: 'Email',
+                        labelStyle:
+                            TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                       validator: (val) => val.isEmpty ? 'Enter an email' : null,
                       onChanged: (val) {
                         setState(() => email = val);
@@ -52,8 +68,14 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'password'),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        labelText: 'Password',
+                        labelStyle:
+                            TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                       obscureText: true,
                       validator: (val) => val.length < 6
                           ? 'Enter a password 6+ chars long'
@@ -64,8 +86,14 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'firstname'),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        labelText: 'Firstname',
+                        labelStyle:
+                            TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                       validator: (val) =>
                           val.isEmpty ? 'Enter an firstname' : null,
                       onChanged: (val) {
@@ -74,8 +102,14 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'lastname'),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        labelText: 'Lastname',
+                        labelStyle:
+                            TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                       validator: (val) =>
                           val.isEmpty ? 'Enter an lastname' : null,
                       onChanged: (val) {
@@ -84,20 +118,32 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 20.0),
                     RaisedButton(
-                        color: Colors.pink[400],
-                        child: Text(
-                          'Register',
-                          style: TextStyle(color: Colors.white),
+                        padding: const EdgeInsets.all(0.0),
+                        child: Container(
+                          width: 300,
+                          decoration: new BoxDecoration(
+                              gradient: new LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFFBC744D),
+                              Color(0xFFA97D69),
+                              Color(0xFF725F5B)
+                            ],
+                          )),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Register',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
                         ),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             setState(() => loading = true);
                             dynamic result =
                                 await _auth.registerWithEmailAndPassword(
-                                    email,
-                                    password,
-                                    firstname,
-                                    lastname);
+                                    email, password, firstname, lastname);
                             if (result == null) {
                               setState(() {
                                 loading = false;
