@@ -2,6 +2,7 @@ import 'package:coffee_love/Aunthenicate/sign_in.dart';
 import 'package:coffee_love/Presenters/auth.dart';
 import 'package:coffee_love/history.dart';
 import 'package:coffee_love/predict.dart';
+import 'package:coffee_love/Drawer.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,24 +16,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF2E9DE),
+      endDrawer: DrawerCode(),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xFF885E5F),
         elevation: 0,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('logout'),
-            onPressed: () async {
-              if (_auth.signOut() != null) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignIn()),
-                    (route) => false);
-              }
-            },
-          ),
-        ],
+
       ),
       body: Container(
         child: SingleChildScrollView(
