@@ -32,6 +32,10 @@ class _RegisterState extends State<Register> {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0.0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

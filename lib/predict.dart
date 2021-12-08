@@ -161,6 +161,10 @@ class _PredictState extends State<Predict> {
             centerTitle: true,
             backgroundColor: Color(0xFF885E5F),
             elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           body: Container(
             child: SingleChildScrollView(

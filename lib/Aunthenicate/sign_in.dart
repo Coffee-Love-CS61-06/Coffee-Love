@@ -108,6 +108,10 @@ class _SignInState extends State<SignIn> {
                                 appBar: AppBar(
                                   backgroundColor: Colors.transparent,
                                   elevation: 0.0,
+                                  leading: IconButton(
+                                    icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+                                    onPressed: () => Navigator.of(context).pop(),
+                                  ),
                                 ),
                                 body: Container(
                                   padding: EdgeInsets.symmetric(
