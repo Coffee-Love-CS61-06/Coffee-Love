@@ -5,6 +5,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 User user = _auth.currentUser;
 DocumentReference ref = _firestore.collection('users').doc(user.uid);
+DocumentReference ref2 = _firestore.collection('descriptions').doc();
 
 class CommentProvider {
   final CollectionReference descriptionsCollection =
@@ -23,7 +24,8 @@ class CommentProvider {
       "image_url": imageUrl,
       "image_id": imageId,
       "uid": ref,
-      "data-time": dateTime
+      "data-time": dateTime,
+      "doc-id": ref2.id,
     });
   }
 }
