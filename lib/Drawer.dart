@@ -29,7 +29,7 @@ class _DrawerCodeState extends State<DrawerCode> {
               child: Material(
                 color: Color(0xffF8F1E9),
                 child: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   children: <Widget>[
                     Container(height: 40),
                     Container(
@@ -91,7 +91,7 @@ class _DrawerCodeState extends State<DrawerCode> {
                       }).toList(),
                     )),
                     Container(
-                      height: 20,
+                      height: 250,
                     ),
                     ButtonTheme(
                       height: 45.0,
