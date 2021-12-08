@@ -1,6 +1,8 @@
+import 'package:coffee_love/Aunthenicate/sign_in.dart';
+import 'package:coffee_love/Presenters/auth.dart';
+import 'package:coffee_love/history.dart';
 import 'package:coffee_love/predict.dart';
 import 'package:flutter/material.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +19,20 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         backgroundColor: Color(0xFF885E5F),
         elevation: 0,
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('logout'),
+            onPressed: () async {
+              if (_auth.signOut() != null) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignIn()),
+                    (route) => false);
+              }
+            },
+          ),
+        ],
       ),
       body: Container(
         child: SingleChildScrollView(
@@ -56,7 +73,8 @@ class _HomeState extends State<Home> {
                             height: 150,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/predict.png'),
+                                  image:
+                                      AssetImage('assets/images/predict.png'),
                                   fit: BoxFit.cover),
                             )),
                       ),
@@ -68,21 +86,21 @@ class _HomeState extends State<Home> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Predict()));
+                                  builder: (context) => History()));
                         },
                         child: Container(
                             width: 350,
                             height: 150,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/history.png'),
+                                  image:
+                                      AssetImage('assets/images/history.png'),
                                   fit: BoxFit.cover),
                             )),
                       ),
                       Container(
                         height: 20.0,
                       ),
-
                     ],
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_love/Presenters/description.dart';
+import 'package:coffee_love/history.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
@@ -30,7 +30,6 @@ class _PredictState extends State<Predict> {
   String image_id;
   // ignore: non_constant_identifier_names
   String date_time;
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
 
@@ -108,8 +107,13 @@ class _PredictState extends State<Predict> {
               new FlatButton(
                 child: new Text('Save'),
                 onPressed: () {
-                  CommentProvider().updateDescriptionsData(class_result,
-                      score_result, description_text, image_url, image_id,date_time);
+                  CommentProvider().updateDescriptionsData(
+                      class_result,
+                      score_result,
+                      description_text,
+                      image_url,
+                      image_id,
+                      date_time);
                   Flushbar(
                     message: 'Description Saved',
                     icon: Icon(
@@ -118,7 +122,10 @@ class _PredictState extends State<Predict> {
                       color: Colors.black,
                     ),
                   );
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => History()),
+                  );
                 },
               )
             ],
