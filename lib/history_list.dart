@@ -15,7 +15,7 @@ class _HistoryListState extends State<HistoryList> {
 
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: descriptions.length,
+      itemCount: descriptions?.length ?? 0,
       itemBuilder: (context, index) {
         return HistoryTile(description: descriptions[index]);
       },

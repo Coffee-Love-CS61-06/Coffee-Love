@@ -49,7 +49,9 @@ class _HistoryState extends State<History> {
                           Container(
                             height: 20.0,
                           ),
-                          Container(child: HistoryList())
+                          Container(
+                            child: HistoryList(),
+                          ),
                         ],
                       ),
                     ),

@@ -1,5 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_love/Models/description.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+User user = _auth.currentUser;
+DocumentReference ref = _firestore.collection('users').doc(user.uid);
 
 class DatabaseService {
   final String uid;
@@ -24,11 +30,15 @@ class DatabaseService {
   // brew list from snapshot
   List<Descriptions> _historyListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      final eventData = doc.data();
       //print(doc.data);
       return Descriptions(
-        class_result: (doc.data() as dynamic)['class_result'],
-        score_result: (doc.data() as dynamic)['score_result'],
+        classResult: (doc.data() as dynamic)['class_result'],
+        scoreResult: (doc.data() as dynamic)['score_result'],
+        descriptionText: (doc.data() as dynamic)['description'],
+        imageUrl: (doc.data() as dynamic)['image_url'],
+        imageId: (doc.data() as dynamic)['image_id'],
+        userId: (doc.data() as dynamic)['user_id'],
+        dateTime: (doc.data() as dynamic)['data-time'],
       );
     }).toList();
   }
@@ -36,7 +46,7 @@ class DatabaseService {
   // get description stream
   Stream<List<Descriptions>> get descriptions {
     return descriptionCollection
-        .where('uid', isEqualTo: uid)
+        .where('uid', isEqualTo: ref)
         .snapshots()
         .map(_historyListFromSnapshot);
   }
