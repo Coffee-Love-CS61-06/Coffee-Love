@@ -15,7 +15,7 @@ class Predict extends StatefulWidget {
 }
 
 class _PredictState extends State<Predict> {
-  File imageURI;
+  XFile imageURI;
   String result;
   // ignore: non_constant_identifier_names
   String class_result;
@@ -32,6 +32,7 @@ class _PredictState extends State<Predict> {
   String date_time;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -134,7 +135,7 @@ class _PredictState extends State<Predict> {
   }
 
   Future getImageFromGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       imageURI = image;
       path = image.path;
@@ -142,7 +143,7 @@ class _PredictState extends State<Predict> {
   }
 
   Future getImageFromCamera() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
       imageURI = image;
       path = image.path;
@@ -194,7 +195,7 @@ class _PredictState extends State<Predict> {
                                 )
                               : Container(
                                   margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                                  child: Image.file(imageURI,
+                                  child: Image.file(File(imageURI.path),
                                       width: 300,
                                       height: 200,
                                       fit: BoxFit.cover),

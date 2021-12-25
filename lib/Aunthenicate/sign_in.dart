@@ -109,8 +109,10 @@ class _SignInState extends State<SignIn> {
                                   backgroundColor: Colors.transparent,
                                   elevation: 0.0,
                                   leading: IconButton(
-                                    icon: Icon(Icons.arrow_back_ios, color: Colors.black),
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    icon: Icon(Icons.arrow_back_ios,
+                                        color: Colors.black),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                   ),
                                 ),
                                 body: Container(
@@ -209,7 +211,7 @@ class _SignInState extends State<SignIn> {
                     RaisedButton(
                         color: Color(0xFFD8803C),
                         child: Text(
-                          'Sign In',
+                          'Sign In   ',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         padding: EdgeInsets.fromLTRB(115, 12, 115, 12),
@@ -231,7 +233,7 @@ class _SignInState extends State<SignIn> {
                     RaisedButton(
                         color: Color(0xFFC46937),
                         child: Text(
-                          'Register',
+                          'Register   ',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         padding: EdgeInsets.fromLTRB(110, 12, 110, 12),
