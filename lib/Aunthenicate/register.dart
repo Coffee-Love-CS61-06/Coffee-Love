@@ -1,5 +1,4 @@
 import 'package:coffee_love/Presenters/auth.dart';
-import 'package:coffee_love/shared/constants.dart';
 import 'package:coffee_love/shared/loading.dart';
 import 'package:flutter/material.dart';
 import '../wrapper.dart';
@@ -127,8 +126,8 @@ class _RegisterState extends State<Register> {
                           width: 300,
                           decoration: new BoxDecoration(
                               gradient: new LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                             colors: [
                               Color(0xFFBC744D),
                               Color(0xFFA97D69),
